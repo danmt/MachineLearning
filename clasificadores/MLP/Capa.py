@@ -1,5 +1,5 @@
 from Neurona import Neurona
-from Utilidades import comb_lineal
+from utilidades.Matematica import comb_lineal
 
 class Capa:
 	def __init__(self,numero,tam,esPrimera,esUltima,activacion,ant):

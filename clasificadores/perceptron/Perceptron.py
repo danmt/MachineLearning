@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 import time
-from Utilidades import comb_lineal
+from utilidades.Matematica import comb_lineal
 
 def plot_points(x,d):
 	for i, point in enumerate(x):
