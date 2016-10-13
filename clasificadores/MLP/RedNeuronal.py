@@ -1,7 +1,7 @@
 from Capa import Capa
 from scipy.special import expit
 import time
-from utilidades.Matematica import sigmoide, comb_lineal
+from utilidades.Matematica import sigmoide, comb_lineal, error_cuadratico_medio
 import numpy as np
 
 def agregar_sesgo(X):
@@ -72,7 +72,7 @@ class RedNeuronal:
 
 		for i in range(epocas):
 			self.retroprogagacion(X,y,tasa)
-			
+
 			print("error_cuadratico_medio: "),
 			print(self.error_cuadratico_medio)
 
@@ -130,7 +130,7 @@ class RedNeuronal:
 				neurona.gradiente = theta * error
 			
 			if capa.esUltima:
-				self.error_cuadratico_medio = (0.5)*np.sum(np.exp2(errores))
+				self.error_cuadratico_medio = error_cuadratico_medio(errores)
 			
 			capa = capa.ant
 
