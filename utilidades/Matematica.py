@@ -1,3 +1,5 @@
+import numpy as np
+
 def comb_lineal(x,w):
 	suma = 0
 
@@ -5,3 +7,8 @@ def comb_lineal(x,w):
 		suma = suma + (xi * w[i])
 
 	return suma
+
+def sigmoide(x,deriv=False):
+	if deriv:
+		return sigmoide(x)*(1-sigmoide(x))
+	return 1.0/(1.0 + np.exp(-x))

@@ -3,6 +3,9 @@ class Sinapsis:
 		self.llegada = llegada
 		self.peso = peso 
 
+	def actualizar_peso(self,peso):
+		self.peso = peso
+
 	def print_synapse(self):
 		spacing = "  " + "  "
 		self.llegada.imprimir_detalles()

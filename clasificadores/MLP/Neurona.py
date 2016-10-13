@@ -1,22 +1,46 @@
 from Sinapsis import Sinapsis
 
 class Neurona:
-	def __init__(self,pos,activationFn):
+	def __init__(self,capa,pos,activacion):
 		self.peso = 0
 		self.pos = pos
 		self.sinapsis = []
-		self.activationFn = activationFn
+		self.activacion = activacion
+		self.capa = capa
+		self.gradiente = 0
 
 	def agregar_sinapsis(self,llegada,pos,peso):
 		sinapsis = Sinapsis(llegada,peso)
 		self.sinapsis.append(sinapsis)
 
+	def obtener_pesos(self):
+		sinapsis = []
+
+		for sinap in self.sinapsis:
+			sinapsis.append(sinap.peso)
+
+		return sinapsis
+
 	def asignar_peso(self,peso):
 		self.peso = peso
 
+	def obtener_incidentes(self):
+		incidentes = []
+		capa_ant = self.capa.ant
+
+		if capa_ant == None:
+			return incidentes
+
+		for neurona in capa_ant.neuronas:
+			for sinapsis in neurona.sinapsis:
+				if self == sinapsis.llegada:
+					incidentes.append(sinapsis.peso)
+
+		return incidentes
+
 	def activate(self):
 		print("Se ejecuta la funcion de activacion")
-		print(self.activationFn(0.458))
+		print(self.activacion(0.458))
 
 	def imprimir_detalles(self):
 		spacing = "  " + "  "
@@ -28,8 +52,10 @@ class Neurona:
 
 		neuronaMsj = "Neurona #" + str(self.pos) + " de peso " + str(self.peso)
 
+		neuronaMsj = neuronaMsj + " y gradiente " + str(self.gradiente) + "\n"
+
 		if len(self.sinapsis) > 0:
-			neuronaMsj = neuronaMsj + " posee las siguientes sinapsis:"
+			neuronaMsj = neuronaMsj + "   Posee las siguientes sinapsis:"
 
 		print(spacing + neuronaMsj)
 

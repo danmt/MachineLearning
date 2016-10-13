@@ -17,11 +17,27 @@ class Capa:
 		for neurona_ant in ant.neuronas:
 			neurona_ant.agregar_sinapsis(neuron,pos,peso)
 
+	def obtener_neuronas_pesadas(self):
+		neuronas_pesadas = [None] * len(self.neuronas)
+
+		for i,neurona in enumerate(self.neuronas):
+			neuronas_pesadas[i] = neurona.peso
+
+		return neuronas_pesadas
+
+	def obtener_neuronas_gradiente(self):
+		neuronas_gradiente = [None] * len(self.neuronas)
+
+		for i,neurona in enumerate(self.neuronas):
+			neuronas_gradiente[i] = neurona.gradiente
+
+		return neuronas_gradiente
+
 	def iniciar_neuronas(self,tam,ant):
 		peso = 0.1
 
 		for x in xrange(0,tam):
-			neurona = Neurona(x,self.activacion)
+			neurona = Neurona(self,x,self.activacion)
 			self.neuronas[x] = neurona
 
 			if ant != None:
