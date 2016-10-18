@@ -3,6 +3,7 @@ from scipy.special import expit
 import time
 from utilidades.Matematica import sigmoide, comb_lineal, error_cuadratico_medio
 import numpy as np
+import matplotlib.pyplot as plt
 
 def agregar_sesgo(X):
 	#Agregamos el sesgo
@@ -19,6 +20,12 @@ def calculo_theta(neurona,capa,activacion,y):
 	V = comb_lineal(y,w)
 
 	return activacion(V,True)
+
+def calculo_error_capa_salida(esperado,salida):
+	return esperado - salida
+
+def calculo_error_capa_oculta():
+	return 1
 
 
 class RedNeuronal:
@@ -66,6 +73,7 @@ class RedNeuronal:
 	def entrenar(self,X,tieneSesgo,epocas,y,tasa):
 		X = np.array(X)
 		y = np.array(y)
+		errores = []
 
 		if not tieneSesgo:
 			X = agregar_sesgo(X)
@@ -73,9 +81,18 @@ class RedNeuronal:
 		for i in range(epocas):
 			self.retroprogagacion(X,y,tasa)
 
-			print("error_cuadratico_medio: "),
-			print(self.error_cuadratico_medio)
+			# print("error_cuadratico_medio: "),
+			# print(self.error_cuadratico_medio)
 
+			if i % 50 == 0:
+				print(self.error_cuadratico_medio)
+
+			errores.append(self.error_cuadratico_medio)
+			
+		plt.axis([0,1000,0,6])
+		plt.plot(errores)
+		plt.show()
+		
 	##	Retropropagacion				
 	##	Precondicion.
 	##	X : Vector de entrada

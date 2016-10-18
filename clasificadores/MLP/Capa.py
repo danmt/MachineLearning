@@ -49,7 +49,7 @@ class Capa:
 
 	def asignar_capa_entrada(self,entrada):
 		for index, neurona in enumerate(self.neuronas):
-			neurona.asignar_peso(entrada[index + 1])	
+			neurona.asignar_peso(entrada[index])	
 
 	def expansion(self):
 		for neurona in self.neuronas:
