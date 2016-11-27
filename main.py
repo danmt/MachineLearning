@@ -1,8 +1,7 @@
-import sys
-from pruebas.mlp import mlp3
+from pruebas.main import main as pruebas
 
 def main():
-	mlp3()
+	pruebas()
 
 if __name__ == '__main__':
 	main()

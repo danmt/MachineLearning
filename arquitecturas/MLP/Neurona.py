@@ -1,4 +1,5 @@
 from Sinapsis import Sinapsis
+import numpy as np
 
 class Neurona:
 	def __init__(self,capa,pos,activacion):
@@ -8,6 +9,7 @@ class Neurona:
 		self.activacion = activacion
 		self.capa = capa
 		self.gradiente = 0
+		self.sesgo = 0
 
 	def agregar_sinapsis(self,llegada,pos,peso):
 		sinapsis = Sinapsis(llegada,peso)
@@ -23,6 +25,22 @@ class Neurona:
 
 	def asignar_peso(self,peso):
 		self.peso = peso
+
+	def obtener_incidentes_sesgado(self):
+		incidentes = np.array([1.])
+
+		capa_ant = self.capa.ant
+
+		if capa_ant == None:
+			return incidentes
+
+		for neurona in capa_ant.neuronas:
+			for sinapsis in neurona.sinapsis:
+				if self == sinapsis.llegada:
+					incidentes = np.append(incidentes,float(sinapsis.peso))
+
+		return incidentes
+
 
 	def obtener_incidentes(self):
 		incidentes = []
@@ -53,6 +71,8 @@ class Neurona:
 		neuronaMsj = "Neurona #" + str(self.pos) + " de peso " + str(self.peso)
 
 		neuronaMsj = neuronaMsj + " y gradiente " + str(self.gradiente) + "\n"
+
+		neuronaMsj = neuronaMsj + " con sesgo b = " + str(self.sesgo) + "\n"
 
 		if len(self.sinapsis) > 0:
 			neuronaMsj = neuronaMsj + "   Posee las siguientes sinapsis:"
